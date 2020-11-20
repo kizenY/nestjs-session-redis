@@ -26,50 +26,35 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Manage session with redis store in Nest.js
 
-## Installation
+## Example
+``` typescript
+@Module({
+  provider: [
+    {
+      {
+        provide: 'SESSION_REDIS_OPT',
+        useValue: {
 
-```bash
-$ npm install
+        } as SessionRedisOpt
+      }
+    }
+  ]
+})
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(SessionMiddleware)
+      .forRoute('*');
+  }
+}
 ```
 
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+## install
+```
+npm i nestjs-session-redis
 ```
 
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-  Nest is [MIT licensed](LICENSE).
+## Why not provide with a module ?
+Because it's difficult to control the order of middleware execution. If you want to apply an other middleware(Middleware A) in AppModule,and impor a module which configure the SessionRedisMiddle,as a result, the Middleware A will exec first,and SessionRedis after.At the time, if Middleware A need session data, it will get undefiend.As common senarios, Middleware A is check user logined by session,it won't work.

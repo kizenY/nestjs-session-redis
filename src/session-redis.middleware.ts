@@ -1,9 +1,9 @@
 import { Inject, NestMiddleware } from "@nestjs/common";
 import { Request, Response } from "express";
-import { SessionRedisOpt } from "./session-redis.module";
 import * as getRedisStore from 'connect-redis'
 import * as session from 'express-session';
 import * as redis from 'redis';
+import { SessionRedisOpt } from "./session-redis.interface";
 
 const RedisStore = getRedisStore(session);
 export class SessionMiddleware implements NestMiddleware {
@@ -18,9 +18,8 @@ export class SessionMiddleware implements NestMiddleware {
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     use(req: Request, res: Response, next: () => void): void {
-        const { header } = this.sessionRedisOpt;
-        if(req.headers[header]) req.headers.cookie = req.headers[header][0];
-        const { redisOpt } = this.sessionRedisOpt;
+        const { header, redisOpt } = this.sessionRedisOpt;
+        if(req.headers[header]) [req.headers.cookie] = req.headers[header];
         const sessionFunc = session({
             store: new RedisStore({ client: redis.createClient(redisOpt) }),
             ...this.sessionRedisOpt.sessionOpt

@@ -1,10 +1,10 @@
 {
-  "name": "nestjs-session-redis",
-  "version": "0.0.1",
+  "name": "nestjs-session-redis-temp",
+  "version": "0.0.2",
   "description": "",
-  "author": "",
-  "private": true,
-  "license": "UNLICENSED",
+  "author": "yinbicheng",
+  "private": false,
+  "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
@@ -24,9 +24,6 @@
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0",
     "@nestjs/platform-express": "^7.0.0",
-    "@types/connect-redis": "0.0.15",
-    "@types/express-session": "^1.17.2",
-    "@types/redis": "^2.8.28",
     "connect-redis": "^5.0.0",
     "express-session": "^1.17.1",
     "redis": "^3.0.2",
@@ -35,6 +32,9 @@
     "rxjs": "^6.5.4"
   },
   "devDependencies": {
+    "@types/connect-redis": "0.0.15",
+    "@types/express-session": "^1.17.2",
+    "@types/redis": "^2.8.28",
     "@nestjs/cli": "^7.0.0",
     "@nestjs/schematics": "^7.0.0",
     "@nestjs/testing": "^7.0.0",
