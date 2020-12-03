@@ -33,12 +33,10 @@ Manage session with redis store in Nest.js
 @Module({
   provider: [
     {
-      {
-        provide: 'SESSION_REDIS_OPT',
-        useValue: {
-
-        } as SessionRedisOpt
-      }
+      provide: 'SESSION_REDIS_OPT',
+      useValue: {
+        // ....
+      } as SessionRedisOpt
     }
   ]
 })
@@ -57,4 +55,4 @@ npm i nestjs-session-redis
 ```
 
 ## Why not provide with a module ?
-Because it's difficult to control the order of middleware execution. If you want to apply an other middleware(Middleware A) in AppModule,and impor a module which configure the SessionRedisMiddle,as a result, the Middleware A will exec first,and SessionRedis after.At the time, if Middleware A need session data, it will get undefiend.As common senarios, Middleware A is check user logined by session,it won't work.
+Because it's difficult to control the order of middleware execution. If you want to apply an other middleware(Middleware A) in AppModule,and import a module which configure the SessionRedisMiddle,as a result, the Middleware A will exec first,and SessionRedis after.At the time, if Middleware A need session data, it will get undefiend.As common senarios, Middleware A is check user logined by session,it won't work.
